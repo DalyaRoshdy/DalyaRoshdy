@@ -1,89 +1,63 @@
-import streamlit as st
+st.title("🏥 Healthcare Intelligence Suite")
 
-st.set_page_config(
-    page_title="Healthcare Analytics Platform",
-    layout="wide"
+st.markdown("""
+### Executive Healthcare Analytics Platform
+
+Transform appointment data into actionable operational intelligence.
+
+#### Included Analytics
+
+- Executive KPI Dashboard
+- Physician Performance Analytics
+- Patient Attendance Analytics
+- No-Show Risk Intelligence
+- Operational Efficiency Metrics
+- Automated Reporting
+
+Upload a dataset to begin.
+""")
+
+page = st.sidebar.radio(
+    "Navigation",
+    [
+        "Overview",
+        "Executive Dashboard",
+        "Physician Analytics",
+        "Patient Analytics",
+        "No-Show Analytics",
+        "Data Quality"
+    ]
 )
 
-st.title("🏥 Healthcare Analytics Platform")
+attendance_rate = df["showed_up_flag"].mean() * 100
 
-uploaded_file = st.file_uploader(
-    "Upload Dataset",
-    type=["xlsx", "csv"]
+if attendance_rate < 80:
+    st.warning(
+        "Attendance rate is below the recommended target of 80%."
+    )
+else:
+    st.success(
+        "Attendance rate is meeting target."
+    )
+
+top_physicians = physician_stats.sort_values(
+    "appointments",
+    ascending=False
+).head(10)
+
+st.dataframe(top_physicians)
+
+top_physicians = physician_stats.sort_values(
+    "appointments",
+    ascending=False
+).head(10)
+
+st.dataframe(top_physicians)
+
+st.download_button(
+    "Download Physician Report",
+    physician_stats.to_csv(index=False),
+    "physician_report.csv",
+    "text/csv"
 )
-
-if uploaded_file:
-    st.write("File uploaded successfully!")
-
-    import pandas as pd
-
-    if uploaded_file.name.endswith(".csv"):
-        df = pd.read_csv(uploaded_file)
-    else:
-        df = pd.read_excel(uploaded_file)
-
-    st.success("Dataset loaded successfully")
-
-    st.subheader("Dataset Information")
-
-    col1, col2, col3 = st.columns(3)
-
-    col1.metric("Rows", len(df))
-    col2.metric("Columns", len(df.columns))
-    col3.metric("Missing Values", df.isnull().sum().sum())
-
-    st.subheader("Columns")
-
-    st.write(df.columns.tolist())
-
-    st.subheader("Numeric KPIs")
-
-    numeric_cols = df.select_dtypes(include="number").columns
-
-    for col in numeric_cols:
-
-        c1, c2, c3, c4 = st.columns(4)
-
-        c1.metric(
-            f"{col} Mean",
-            round(df[col].mean(), 2)
-        )
-
-        c2.metric(
-            f"{col} Sum",
-            round(df[col].sum(), 2)
-        )
-
-        c3.metric(
-            f"{col} Max",
-            round(df[col].max(), 2)
-        )
-
-        c4.metric(
-            f"{col} Min",
-            round(df[col].min(), 2)
-        )
-
-
-    import plotly.express as px
-
-    st.subheader("Visual Analytics")
-
-    selected_column = st.selectbox(
-        "Select Numeric Column",
-        numeric_cols
-    )
-
-    fig = px.histogram(
-        df,
-        x=selected_column,
-        title=f"Distribution of {selected_column}"
-    )
-
-    st.plotly_chart(
-        fig,
-        use_container_width=True
-    )
-
-datetime_cols = df.select_dtypes(include="datetime").columns
 
