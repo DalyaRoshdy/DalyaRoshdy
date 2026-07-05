@@ -85,3 +85,5 @@ if uploaded_file:
         use_container_width=True
     )
 
+datetime_cols = df.select_dtypes(include="datetime").columns
+
