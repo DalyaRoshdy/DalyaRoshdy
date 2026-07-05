@@ -1,0 +1,40 @@
+app.py
+import streamlit as st
+
+st.set_page_config(
+    page_title="Healthcare Analytics Platform",
+    page_icon="🏥",
+    layout="wide"
+)
+
+st.title("🏥 Healthcare Analytics Platform")
+
+page = st.sidebar.selectbox(
+    "Navigation",
+    [
+        "Executive Dashboard",
+        "Physician Analytics",
+        "Patient Analytics",
+        "No-Show Analytics",
+        "Data Quality",
+        "Reporting Center"
+    ]
+)
+
+if page == "Executive Dashboard":
+    st.header("Executive Dashboard")
+
+elif page == "Physician Analytics":
+    st.header("Physician Analytics")
+
+elif page == "Patient Analytics":
+    st.header("Patient Analytics")
+
+elif page == "No-Show Analytics":
+    st.header("No-Show Analytics")
+
+elif page == "Data Quality":
+    st.header("Data Quality")
+
+elif page == "Reporting Center":
+    st.header("Reporting Center")
