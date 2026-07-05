@@ -7,10 +7,6 @@ st.set_page_config(
 
 st.title("🏥 Healthcare Analytics Platform")
 
-st.success("Streamlit is working!")
-
-st.write("If you can see this message, deployment succeeded.")
-
 uploaded_file = st.file_uploader(
     "Upload Dataset",
     type=["xlsx", "csv"]
