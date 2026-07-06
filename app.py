@@ -235,7 +235,7 @@ Unique physicians: {unique_physicians}
 """
 )
 
-pages/05_NoShow_Intelligence.py
+# pages/05_NoShow_Intelligence.py
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -414,7 +414,7 @@ st.info(
 )
 
 
-pages/04_Patient_Analytics.py
+# pages/04_Patient_Analytics.py
 import streamlit as st
 import pandas as pd
 import plotly.express as px
